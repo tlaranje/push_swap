@@ -6,15 +6,23 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 10:46:24 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/14 13:49:38 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/11/17 16:57:56 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PUSH_SWAP
-# define FT_PUSH_SWAP
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
 # include "../libft/libft.h"
 
-int	check_args(int ar, char *av[]);
+typedef struct s_args
+{
+	char			**strs;
+	int				*ints;
+	struct s_args	*next;
+}	arrays;
+
+int	check_nbr_args(int ar, char *av[]);
+void	convert_args(int ar, char *av[], int is_single, arrays **lst);
 
 
 #endif
