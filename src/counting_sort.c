@@ -1,33 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   counting_sort.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/14 10:46:24 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/18 16:33:16 by tlaranje         ###   ########.fr       */
+/*   Created: 2025/11/18 14:18:35 by tlaranje          #+#    #+#             */
+/*   Updated: 2025/11/18 14:22:53 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include "../libft/libft.h"
-
-int		check_nbr_args(int ar, char *av[], t_list **lst);
-void	ft_error(char *msg);
-
-//instructions
-int		swap(t_list *lst_swap);
-int		sa(t_list *lst_a);
-int		sb();
-int		ss();
-int		pa();
-int		pb();
-int		ra();
-int		rb();
-int		rr();
-int		rra();
-int		rrb();
-int		rrr();
-#endif
+#include "push_swap.h"

@@ -6,11 +6,11 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 13:49:15 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/18 13:58:12 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:05:13 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/push_swap.h"
+#include "push_swap.h"
 
 static int	check_doubles(t_list *lst)
 {
@@ -23,7 +23,7 @@ static int	check_doubles(t_list *lst)
 		lst2 = lst1->next;
 		while (lst2)
 		{
-			if (ft_atoi(lst1->content) == ft_atoi(lst2->content))
+			if (lst1->content == lst2->content)
 				return (1);
 			lst2 = lst2->next;
 		}
@@ -32,28 +32,31 @@ static int	check_doubles(t_list *lst)
 	return (0);
 }
 
-static void	convert_args(int ar, char *av[], t_list **lst, int is_single)
+static void	convert_args(int ar, char *av[], t_list **lst)
 {
 	int		i;
+	int		j;
+	int		*nbr;
 	char	**split;
 
-	i = 0;
-	if (is_single)
+	i = 1;
+	while (i < ar)
 	{
-		split = ft_split(av[1], ' ');
-		while (split[i])
-			ft_lstadd_back(lst, ft_lstnew(ft_strdup(split[i++])));
-		i = 0;
-		while (split[i])
-			free(split[i++]);
+		split = ft_split(av[i], ' ');
+		j = 0;
+		while (split[j])
+		{
+			nbr = malloc(sizeof(int));
+			*nbr = ft_atoi(split[j]);
+			ft_lstadd_back(lst, ft_lstnew(nbr));
+			j++;
+		}
 		free(split);
+		i++;
 	}
-	else
-		while (i < ar - 1)
-			ft_lstadd_back(lst, ft_lstnew(ft_strdup(av[(i++) + 1])));
 }
 
-static int	check_args(char *av[], int is_single)
+static int	check_args(int ar, char *av[])
 {
 	int	i;
 	int	j;
@@ -69,7 +72,7 @@ static int	check_args(char *av[], int is_single)
 				return (0);
 			i++;
 		}
-		if (!is_single)
+		if (!(ar == 2))
 			j++;
 		else
 			break ;
@@ -77,23 +80,11 @@ static int	check_args(char *av[], int is_single)
 	return (1);
 }
 
-int	check_nbr_args(int ar, char *av[])
+int	check_nbr_args(int ar, char *av[], t_list **lst)
 {
-	t_list	*lst;
-
-	lst = NULL;
-	if (ar == 2)
-	{
-		convert_args(ar, av, &lst, 1);
-		if (check_args(av, 1) && !check_doubles(lst))
-			return (1);
-	}
-	else if (ar > 2)
-	{
-		convert_args(ar, av, &lst, 0);
-		if (check_args(av, 0) && !check_doubles(lst))
-			return (1);
-	}
-	ft_lstclear(&lst, del);
+	convert_args(ar, av, lst);
+	if (check_args(ar, av) && !check_doubles(*lst))
+		return (1);
+	ft_lstclear(lst, del);
 	return (0);
 }
