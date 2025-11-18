@@ -6,40 +6,31 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 13:49:15 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/17 17:10:58 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/11/18 12:08:06 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void	convert_args(int ar, char *av[], int is_single, arrays **lst)
+static void	convert_args(int ar, char *av[], t_list **lst, int is_single)
 {
-	int	i = 0;
-	int	count = 0;
+	int		i;
+	char	**split;
 
-	*lst = malloc(sizeof(arrays));
-	(*lst)->next = NULL;
-	if (is_single)
-		(*lst)->strs = ft_split(av[1], ' ');
-	else
-	{
-		(*lst)->strs = malloc(sizeof(char *) * ar);
-		while (i < ar - 1)
-		{
-			(*lst)->strs[i] = av[i + 1];
-			i++;
-		}
-		(*lst)->strs[i] = NULL;
-	}
-	while ((*lst)->strs[count])
-		count++;
-	(*lst)->ints = malloc(sizeof(int) * count);
 	i = 0;
-	while (i < count)
+	if (is_single)
 	{
-		(*lst)->ints[i] = ft_atoi((*lst)->strs[i]);
-		i++;
+		split = ft_split(av[1], ' ');
+		while (split[i])
+			ft_lstadd_back(lst, ft_lstnew(ft_strdup(split[i++])));
+		i = 0;
+		while (split[i])
+			free(split[i++]);
+		free(split);
 	}
+	else
+		while (i < ar - 1)
+			ft_lstadd_back(lst, ft_lstnew(ft_strdup(av[(i++) + 1])));
 }
 
 static int	check_args(char *av[], int is_single)
@@ -68,9 +59,21 @@ static int	check_args(char *av[], int is_single)
 
 int	check_nbr_args(int ar, char *av[])
 {
+	t_list	*lst;
+
+	lst = NULL;
 	if (ar == 2)
-		return(check_args(av, 1));
-	else
-		return(check_args(av, 0));
+	{
+		if(check_args(av, 1))
+			return (1);
+		convert_args(ar, av, &lst, 1);
+	}
+	else if (ar > 2)
+	{
+		if(check_args(av, 0))
+			return (1);
+		convert_args(ar, av, &lst, 0);
+	}
+	ft_lstclear(&lst, ft_del);
 	return (0);
 }
