@@ -6,7 +6,7 @@
 #    By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 14:09:52 by tlaranje          #+#    #+#              #
-#    Updated: 2025/11/17 14:30:49 by tlaranje         ###   ########.fr        #
+#    Updated: 2025/11/19 10:44:10 by tlaranje         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,26 +27,28 @@ CC			:= cc
 MAKE_C		:= make -C
 RM			:= rm -rf
 GIT			:= git
+FIND		:= find
 
 # === Flags ===
 CFLAGS		:= -Wall -Wextra -Werror -I$(INC_DIR) -I$(LIBFT_DIR)
 
 # === Source files ===
-MDT_SRC		:= $(wildcard $(SRC_DIR)/*.c)
+MDT_SRC		:= $(shell $(FIND) $(SRC_DIR) -type f -name '*.c')
 
 # === Object files ===
-MDT_OBJ		:= $(patsubst %.c,$(OBJ_DIR)/%.o,$(notdir $(MDT_SRC)))
+MDT_OBJ		:= $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(MDT_SRC))
 LIBFT		:= $(LIBFT_DIR)/libft.a
 
 # === Build targets ===
 all: $(OBJ_DIR) libft $(NAME)
 
-# Create obj directory if it doesn't exist
+# Create obj directory structure matching src/
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
-# Compile .c files into .o files
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+# Ensure subdirectories exist
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 # Link object files into final executable

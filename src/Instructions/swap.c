@@ -1,86 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instructions.c                                     :+:      :+:    :+:   */
+/*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 14:20:43 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/18 16:58:09 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/11/19 16:47:49 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	swap(t_list *lst_swap)
+int	swap(t_stack **stack_swap)
 {
-	t_list	*lst_1;
-	t_list	*lst_2;
- 	int tmp;
+	t_stack	*stack_1;
+	t_stack	*stack_2;
+	int		tmp;
 
-	if (ft_lstsize(lst_swap) < 2)
+	if (ft_stack_size(*stack_swap) < 2)
 		return (0);
-	lst_1 = lst_swap;
-	lst_2 = lst_swap->next;
-	tmp = *(int *)lst_1->content;
-	*(int *)lst_1->content = *(int *)lst_2->content;
-	*(int *)lst_2->content = tmp;
+	stack_1 = *stack_swap;
+	stack_2 = (*stack_swap)->next;
+	tmp = stack_1->content;
+	stack_1->content = stack_2->content;
+	stack_2->content = tmp;
 	return (1);
 }
 
-int	sa(t_list *lst_a)
+int	sa(t_stack **stack_a)
 {
-	if (swap(lst_a) == 0)
+	if (swap(stack_a) == 0)
 		return (0);
+	ft_putendl_fd("sa", 1);
 	return (1);
 }
 
-int	sb()
+int	sb(t_stack **stack_b)
 {
-	return (0);
+	if (swap(stack_b) == 0)
+		return (0);
+	ft_putendl_fd("sb", 1);
+	return (1);
 }
 
-int	ss()
+int	ss(t_stack **stack_a, t_stack **stack_b)
 {
-	return (0);
-}
-
-int	pa()
-{
-	return (0);
-}
-
-int	pb()
-{
-	return (0);
-}
-
-int	ra()
-{
-	return (0);
-}
-
-int	rb()
-{
-	return (0);
-}
-
-int	rr()
-{
-	return (0);
-}
-
-int	rra()
-{
-	return (0);
-}
-
-int	rrb()
-{
-	return (0);
-}
-
-int	rrr()
-{
-	return (0);
+	if (swap(stack_a) == 0)
+		return (0);
+	if (swap(stack_b) == 0)
+		return (0);
+	ft_putendl_fd("ss", 1);
+	return (1);
 }

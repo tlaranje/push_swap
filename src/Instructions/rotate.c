@@ -1,39 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/14 10:46:24 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/19 16:48:23 by tlaranje         ###   ########.fr       */
+/*   Created: 2025/11/19 10:36:55 by tlaranje          #+#    #+#             */
+/*   Updated: 2025/11/19 16:47:39 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(int ar, char *av[])
+int	ra(t_stack **stack_a)
 {
-	t_stack	*stack_a;
-	//t_stack	*stack_b;
-	t_stack	*tmp_a;
-	int		i;
+	push(stack_a, stack_a);
+	ft_putendl_fd("ra", 1);
+	return (1);
+}
 
-	stack_a = NULL;
-	if (ar < 2)
-		ft_error("Error\n");
-	if (!ft_check_args(ar, av, &stack_a))
-		ft_error("Error\n");
-	i = 0;
-	tmp_a = stack_a;
-	ft_sort(&tmp_a);
-	/* printf("stack_a:\n");
-	while (tmp_a)
-	{
-		printf("    %d: %d\n", i, tmp_a->content);
-		tmp_a = tmp_a->next;
-		i++;
-	} */
-	ft_stack_clear(&stack_a);
-	return (0);
+int	rb(t_stack **stack_b)
+{
+	push(stack_b, stack_b);
+	ft_putendl_fd("rb", 1);
+	return (1);
+}
+
+int	rr(t_stack **stack_a, t_stack **stack_b)
+{
+	push(stack_a, stack_a);
+	push(stack_b, stack_b);
+	ft_putendl_fd("rr", 1);
+	return (1);
 }

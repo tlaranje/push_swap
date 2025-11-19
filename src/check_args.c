@@ -1,42 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   is_valid_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 13:49:15 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/18 16:05:13 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/11/19 14:18:40 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	check_doubles(t_list *lst)
+static int	check_doubles(t_stack *stack)
 {
-	t_list	*lst1;
-	t_list	*lst2;
+	t_stack	*stack1;
+	t_stack	*stack2;
 
-	lst1 = lst;
-	while (lst1)
+	stack1 = stack;
+	while (stack1)
 	{
-		lst2 = lst1->next;
-		while (lst2)
+		stack2 = stack1->next;
+		while (stack2)
 		{
-			if (lst1->content == lst2->content)
+			if (stack1->content == stack2->content)
 				return (1);
-			lst2 = lst2->next;
+			stack2 = stack2->next;
 		}
-		lst1 = lst1->next;
+		stack1 = stack1->next;
 	}
 	return (0);
 }
 
-static void	convert_args(int ar, char *av[], t_list **lst)
+static void	convert_args(int ar, char *av[], t_stack **stack)
 {
 	int		i;
 	int		j;
-	int		*nbr;
+	int		nbr;
 	char	**split;
 
 	i = 1;
@@ -46,17 +46,19 @@ static void	convert_args(int ar, char *av[], t_list **lst)
 		j = 0;
 		while (split[j])
 		{
-			nbr = malloc(sizeof(int));
-			*nbr = ft_atoi(split[j]);
-			ft_lstadd_back(lst, ft_lstnew(nbr));
+			nbr = ft_atoi(split[j]);
+			ft_stack_add_back(stack, ft_stack_new(nbr));
 			j++;
 		}
+		j = 0;
+		while (split[j])
+			free(split[j++]);
 		free(split);
 		i++;
 	}
 }
 
-static int	check_args(int ar, char *av[])
+static int	is_valid_args(int ar, char *av[])
 {
 	int	i;
 	int	j;
@@ -80,11 +82,10 @@ static int	check_args(int ar, char *av[])
 	return (1);
 }
 
-int	check_nbr_args(int ar, char *av[], t_list **lst)
+int	ft_check_args(int ar, char *av[], t_stack **stack)
 {
-	convert_args(ar, av, lst);
-	if (check_args(ar, av) && !check_doubles(*lst))
+	convert_args(ar, av, stack);
+	if (is_valid_args(ar, av) && !check_doubles(*stack))
 		return (1);
-	ft_lstclear(lst, del);
 	return (0);
 }
