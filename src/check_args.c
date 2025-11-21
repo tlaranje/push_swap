@@ -12,27 +12,7 @@
 
 #include "push_swap.h"
 
-static int	check_doubles(t_stack *stack)
-{
-	t_stack	*stack1;
-	t_stack	*stack2;
-
-	stack1 = stack;
-	while (stack1)
-	{
-		stack2 = stack1->next;
-		while (stack2)
-		{
-			if (stack1->content == stack2->content)
-				return (1);
-			stack2 = stack2->next;
-		}
-		stack1 = stack1->next;
-	}
-	return (0);
-}
-
-static void	convert_args(int ar, char *av[], t_stack **stack)
+static void	convert_args(int ar, char *av[], t_stack **stk)
 {
 	int		i;
 	int		j;
@@ -47,7 +27,7 @@ static void	convert_args(int ar, char *av[], t_stack **stack)
 		while (split[j])
 		{
 			nbr = ft_atoi(split[j]);
-			ft_stack_add_back(stack, ft_stack_new(nbr));
+			ft_stack_add_back(stk, ft_stack_new(nbr));
 			j++;
 		}
 		j = 0;
@@ -56,6 +36,26 @@ static void	convert_args(int ar, char *av[], t_stack **stack)
 		free(split);
 		i++;
 	}
+}
+
+static int	check_doubles(t_stack *stk)
+{
+	t_stack	*stk_a;
+	t_stack	*stk_b;
+
+	stk_a = stk;
+	while (stk_a)
+	{
+		stk_b = stk_a->next;
+		while (stk_b)
+		{
+			if (stk_a->content == stk_b->content)
+				return (1);
+			stk_b = stk_b->next;
+		}
+		stk_a = stk_a->next;
+	}
+	return (0);
 }
 
 static int	is_valid_args(int ar, char *av[])
@@ -82,10 +82,10 @@ static int	is_valid_args(int ar, char *av[])
 	return (1);
 }
 
-int	ft_check_args(int ar, char *av[], t_stack **stack)
+int	ft_check_args(int ar, char *av[], t_stack **stk)
 {
-	convert_args(ar, av, stack);
-	if (is_valid_args(ar, av) && !check_doubles(*stack))
+	convert_args(ar, av, stk);
+	if (is_valid_args(ar, av) && !check_doubles(*stk))
 		return (1);
 	return (0);
 }

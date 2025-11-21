@@ -6,7 +6,7 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 11:44:09 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/19 16:47:58 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/11/21 16:09:54 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,61 +14,61 @@
 
 t_stack	*ft_stack_new(int content)
 {
-	t_stack	*ptr;
+	t_stack	*new_stk;
 
-	ptr = malloc(sizeof(t_stack));
-	if (!ptr)
+	new_stk = malloc(sizeof(t_stack));
+	if (!new_stk)
 		return (NULL);
-	ptr->content = content;
-	ptr->next = NULL;
-	return (ptr);
+	new_stk->content = content;
+	new_stk->next = NULL;
+	return (new_stk);
 }
 
-void	ft_stack_add_front(t_stack **stack, t_stack *new)
+void	ft_stack_add_front(t_stack **stk, t_stack *new_stk)
 {
-	new->next = *stack;
-	*stack = new;
+	new_stk->next = *stk;
+	*stk = new_stk;
 }
 
-void	ft_stack_add_back(t_stack **stack, t_stack *new)
+void	ft_stack_add_back(t_stack **stk, t_stack *new_stk)
 {
 	t_stack	*last;
 
-	if (*stack == NULL)
+	if (*stk == NULL)
 	{
-		*stack = new;
+		*stk = new_stk;
 		return ;
 	}
-	last = *stack;
+	last = *stk;
 	while (last->next)
 		last = last->next;
-	last->next = new;
+	last->next = new_stk;
 }
 
-void	ft_stack_clear(t_stack **stack)
+void	ft_stack_clear(t_stack **stk)
 {
-	t_stack	*ptr;
+	t_stack	*new_stk;
 
-	if (!stack || !*stack)
+	if (!stk || !*stk)
 		return ;
-	while (*stack)
+	while (*stk)
 	{
-		ptr = (*stack)->next;
-		free(*stack);
-		*stack = ptr;
+		new_stk = (*stk)->next;
+		free(*stk);
+		*stk = new_stk;
 	}
-	*stack = NULL;
+	*stk = NULL;
 }
 
-int	ft_stack_size(t_stack *stack)
+int	ft_stack_size(t_stack *stk)
 {
 	size_t	len;
 
 	len = 0;
-	while (stack)
+	while (stk)
 	{
 		len++;
-		stack = stack->next;
+		stk = stk->next;
 	}
 	return (len);
 }
