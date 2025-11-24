@@ -6,7 +6,7 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 10:46:24 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/21 16:33:31 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/11/24 16:01:26 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,16 @@ int		rrb(t_stack **stk_b);
 int		rrr(t_stack **stk_a, t_stack **stk_b);
 
 //Algorithm
-int	ft_sort(t_stack *stk_a, t_stack *stk_b);
+int		sort_2(t_stack **stk_a);
+int		sort_3(t_stack **stk_a, t_stack **stk_b);
+int		sort_4(t_stack **stk_a, t_stack **stk_b);
+int		sort_5(t_stack **stk_a, t_stack **stk_b);
+int		merge_sort(t_stack **stk_a, int left, int right);
 
 //Utils
 void	ft_error(char *msg);
-int		ft_is_sort(t_stack *stk);
-int		ft_max(t_stack *stk);
+int		ft_is_sort(t_stack *stk_a);
+int		ft_max(t_stack *stk_a);
+int		ft_min_pos(t_stack *stk_a);
 
 #endif

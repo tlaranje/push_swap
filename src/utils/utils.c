@@ -6,7 +6,7 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 16:09:28 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/21 16:24:16 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/11/24 13:59:18 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,38 +18,58 @@ void	ft_error(char *msg)
 	exit(0);
 }
 
-int	ft_is_sort(t_stack *stack)
+int	ft_is_sort(t_stack *stk_a)
 {
-	t_stack	*stack1;
-	t_stack	*stack2;
+	t_stack	*stk_b;
 
-	stack1 = stack;
-	while (stack1)
+	while (stk_a)
 	{
-		stack2 = stack1->next;
-		while (stack2)
+		stk_b = stk_a->next;
+		while (stk_b)
 		{
-			if (stack1->content > stack2->content)
+			if (stk_a->content > stk_b->content)
 				return (0);
-			stack2 = stack2->next;
+			stk_b = stk_b->next;
 		}
-		stack1 = stack1->next;
+		stk_a = stk_a->next;
 	}
 	return (1);
 }
 
-int	ft_max(t_stack *stack)
+int	ft_max(t_stack *stk_a)
 {
 	int	max;
 	int	nbr;
 
-	max = stack->content;
-	while (stack)
+	max = stk_a->content;
+	while (stk_a)
 	{
-		nbr = stack->content;
+		nbr = stk_a->content;
 		if (nbr > max)
-			max = stack->content;
-		stack = stack->next;
+			max = stk_a->content;
+		stk_a = stk_a->next;
 	}
 	return (max);
+}
+
+int	ft_min_pos(t_stack *stk_a)
+{
+	int	min;
+	int	pos;
+	int	i;
+
+	min = stk_a->content;
+	pos = 0;
+	i = 0;
+	while (stk_a)
+	{
+		if (stk_a->content < min)
+		{
+			min = stk_a->content;
+			pos = i;
+		}
+		stk_a = stk_a->next;
+		i++;
+	}
+	return (pos);
 }
