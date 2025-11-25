@@ -6,11 +6,29 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 13:49:15 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/24 11:44:51 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/11/25 16:51:49 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static int	ft_is_sort(t_stack *stk_a)
+{
+	t_stack	*stk_b;
+
+	while (stk_a)
+	{
+		stk_b = stk_a->next;
+		while (stk_b)
+		{
+			if (stk_a->content > stk_b->content)
+				return (0);
+			stk_b = stk_b->next;
+		}
+		stk_a = stk_a->next;
+	}
+	return (1);
+}
 
 static void	convert_args(int ar, char *av[], t_stack **stk)
 {
@@ -85,6 +103,8 @@ static int	is_valid_args(int ar, char *av[])
 int	ft_check_args(int ar, char *av[], t_stack **stk)
 {
 	convert_args(ar, av, stk);
+	if (ft_is_sort(*stk))
+		ft_error("Error");
 	if (is_valid_args(ar, av) && !check_doubles(*stk))
 		return (1);
 	return (0);

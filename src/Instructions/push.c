@@ -6,7 +6,7 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 10:36:17 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/24 15:58:59 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/11/25 12:01:33 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	pa(t_stack **stk_a, t_stack **stk_b)
 	if (ft_stack_size(*stk_b) == 0)
 		return (0);
 	push(stk_a, stk_b);
-	ft_putstr_fd("pa ", 1);
+	ft_printf("pa\n");
 	return (1);
 }
 
@@ -39,6 +39,6 @@ int	pb(t_stack **stk_a, t_stack **stk_b)
 	if (ft_stack_size(*stk_a) == 0)
 		return (0);
 	push(stk_b, stk_a);
-	ft_putstr_fd("pb ", 1);
+	ft_printf("pb\n");
 	return (1);
 }

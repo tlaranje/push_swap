@@ -6,30 +6,47 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 10:36:55 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/24 14:44:31 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/11/25 16:32:46 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+static int	rotate(t_stack **stk)
+{
+	t_stack	*first;
+
+	if (!*stk || !(*stk)->next)
+		return (0);
+	first = *stk;
+	*stk = first->next;
+	first->next = NULL;
+	ft_stack_add_back(stk, first);
+	return (1);
+}
+
 int	ra(t_stack **stk_a)
 {
-	push(stk_a, stk_a);
-	ft_putstr_fd("ra ", 1);
+	if (rotate(stk_a))
+		ft_printf("ra\n");
 	return (1);
 }
 
 int	rb(t_stack **stk_b)
 {
-	push(stk_b, stk_b);
-	ft_putstr_fd("rb ", 1);
+	if (rotate(stk_b))
+		ft_printf("rb\n");
 	return (1);
 }
 
 int	rr(t_stack **stk_a, t_stack **stk_b)
 {
-	push(stk_a, stk_a);
-	push(stk_b, stk_b);
-	ft_putstr_fd("rr ", 1);
-	return (1);
+	int	rot_a;
+	int	rot_b;
+
+	rot_a = rotate(stk_a);
+	rot_b = rotate(stk_b);
+	if (rot_a || rot_b)
+		ft_printf("rr\n");
+	return (rot_a || rot_b);
 }

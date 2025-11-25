@@ -6,7 +6,7 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 14:20:43 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/24 14:45:13 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/11/25 12:02:27 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	sa(t_stack **stk_a)
 {
 	if (swap(stk_a) == 0)
 		return (0);
-	ft_putstr_fd("sa ", 1);
+	ft_printf("sa\n");
 	return (1);
 }
 
@@ -40,7 +40,7 @@ int	sb(t_stack **stk_b)
 {
 	if (swap(stk_b) == 0)
 		return (0);
-	ft_putstr_fd("sb ", 1);
+	ft_printf("sb\n");
 	return (1);
 }
 
@@ -50,6 +50,6 @@ int	ss(t_stack **stk_a, t_stack **stk_b)
 		return (0);
 	if (swap(stk_b) == 0)
 		return (0);
-	ft_putstr_fd("ss ", 1);
+	ft_printf("ss\n");
 	return (1);
 }
