@@ -6,7 +6,7 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 14:18:35 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/25 16:34:18 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/11/26 09:48:27 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int radix_sort(t_stack **stk_a, t_stack **stk_b, int stk_size)
 				ops += pb(stk_a, stk_b);
 			j++;
 		}
-		while (ft_stack_size(*stk_b) != 0)
+		while (*stk_b)
 			ops += pa(stk_a, stk_b);
 		i++;
 	}
