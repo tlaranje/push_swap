@@ -6,7 +6,7 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 16:09:28 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/25 16:52:38 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/11/28 11:17:14 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,27 @@ int	ft_min_pos(t_stack *stk_a)
 		i++;
 	}
 	return (pos);
+}
+
+void	add_index(t_stack **stk_a)
+{
+	t_stack	*n1;
+	t_stack	*n2;
+	int		i;
+
+	i = 0;
+	n1 = *stk_a;
+	while (n1)
+	{
+		i = 0;
+		n2 = *stk_a;
+		while (n2)
+		{
+			if (n1->content > n2->content)
+				i++;
+			n2 = n2->next;
+		}
+		n1->index = i;
+		n1 = n1->next;
+	}
 }
