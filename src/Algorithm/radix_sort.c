@@ -6,43 +6,11 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 14:18:35 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/28 15:39:04 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/12/02 16:11:35 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static int	find_max_lis(t_stack *stk_a)
-{
-	t_stack	*current;
-	t_stack	*prev;
-	int		max_lis;
-
-	max_lis = 0;
-	current = stk_a;
-	while (current)
-	{
-		prev = stk_a;
-		while (prev != current)
-		{
-			if (prev->content < current->content)
-			{
-				if (prev->lis_length + 1 > current->lis_length)
-					current->lis_length = prev->lis_length + 1;
-			}
-			prev = prev->next;
-		}
-		current = current->next;
-	}
-	current = stk_a;
-	while (current)
-	{
-		if (current->lis_length > max_lis)
-			max_lis = current->lis_length;
-		current = current->next;
-	}
-	return (max_lis);
-}
 
 static int	find_max_bit(t_stack *stk_a)
 {
@@ -73,9 +41,9 @@ int	radix_sort(t_stack **stk_a, t_stack **stk_b, int stk_size)
 
 	ops = 0;
 	i = 0;
-	printf("\n\nMax lis: %d\n\n", find_max_lis(*stk_a));
 	while (i < find_max_bit(*stk_a))
 	{
+		stk_size = ft_stack_size(*stk_a);
 		j = 0;
 		while (j < stk_size)
 		{

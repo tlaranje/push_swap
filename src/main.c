@@ -6,27 +6,28 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 10:46:24 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/28 15:38:17 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/12/02 16:33:22 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_stack(t_stack *stk)
+void	print_stack(t_stack *stk, char *nome)
 {
-	ft_printf("+---------------+\n");
-	ft_printf("|     Stack     |\n");
-	ft_printf("+---------------+\n");
-	printf("|   Size: %3d   |\n", ft_stack_size(stk));
-	ft_printf("+---------------+\n");
-	ft_printf("| Index | Value |\n");
-	ft_printf("+---------------+\n");
+	ft_printf("+-------------------------------------+\n");
+	ft_printf("|              Stack %s                |\n", nome);
+	ft_printf("+-------------------------------------+\n");
+	printf("|              Size: %-3d              |\n", ft_stack_size(stk));
+	ft_printf("+-------------------------------------+\n");
+	ft_printf("| Index | Is_lis | Lis_length | Value |\n");
+	ft_printf("+-------------------------------------+\n");
 	while (stk)
 	{
-		printf("| %5d | %5d |\n", stk->index, stk->content);
+		printf("| %5d | %6d | %10d | %5d |\n",
+			stk->index, stk->is_lis, stk->lis_length, stk->content);
 		stk = stk->next;
 	}
-	ft_printf("+---------------+\n");
+	ft_printf("+-------------------------------------+\n\n");
 }
 
 static int	ft_sort(int ar, char *av[], t_stack **stk_a, t_stack **stk_b)
@@ -45,7 +46,8 @@ static int	ft_sort(int ar, char *av[], t_stack **stk_a, t_stack **stk_b)
 	else if (ft_stack_size(*stk_a) == 5)
 		return (sort_5(stk_a, stk_b));
 	else if (ft_stack_size(*stk_a) > 5)
-		return (radix_sort(stk_a, stk_b, ft_stack_size(*stk_a)));
+		//return (radix_sort(stk_a, stk_b, ft_stack_size(*stk_a)));
+		return (chunks_sort(stk_a, stk_b, 20, ft_stack_size(*stk_a)));
 	return (1);
 }
 
@@ -53,21 +55,15 @@ int	main(int ar, char *av[])
 {
 	t_stack	*stk_a;
 	t_stack	*stk_b;
-	t_stack	*tmp;
 	int		ops;
 
 	stk_a = NULL;
 	stk_b = NULL;
 	ops = 0;
-	while (stk_a)
-	{
-		stk_a->lis_length = 1;
-		stk_a = stk_a->next;
-	}
 	ops += ft_sort(ar, av, &stk_a, &stk_b);
-	tmp = stk_a;
 	printf("\nOperations: %d\n\n", ops);
-	print_stack(tmp);
+	print_stack(stk_a, "A");
+	print_stack(stk_b, "B");
 	ft_stack_clear(&stk_a);
 	ft_stack_clear(&stk_b);
 	return (0);
