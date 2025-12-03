@@ -6,7 +6,7 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 10:46:24 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/12/02 16:33:46 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/12/03 17:18:31 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 # include "../libft/libft.h"
 
 //Stack
+
+
 typedef struct s_stack
 {
-	int				content;
 	int				index;
 	int				lis_length;
 	int				is_lis;
+	int				content;
 	struct s_stack	*next;
 }	t_stack;
 
@@ -31,7 +33,7 @@ void	ft_stack_clear(t_stack **stk);
 int		ft_stack_size(t_stack *stk);
 
 //Check args
-int		ft_check_args(int ar, char *av[], t_stack **stk);
+int		check_args(int ar, char *av[], t_stack **stk);
 
 //Instructions
 int		swap(t_stack **stk_swap);
@@ -56,14 +58,15 @@ int		sort_2(t_stack **stk_a);
 int		sort_3(t_stack **stk_a, t_stack **stk_b);
 int		sort_4(t_stack **stk_a, t_stack **stk_b);
 int		sort_5(t_stack **stk_a, t_stack **stk_b);
-int		radix_sort(t_stack **stk_a, t_stack **stk_b, int stk_size);
-/* int		lis(t_stack **stk_a);
+void	radix_sort(t_stack **stk_a, t_stack **stk_b, int stk_size, int *ops);
+int		lis(t_stack **stk_a);
 void	set_is_lis(t_stack **stk_a, int max_len);
-int		move_stk(t_stack **stk_a, t_stack **stk_b, int stk_size); */
-int	chunks_sort(t_stack **stk_a, t_stack **stk_b, int chunk_size, int stk_size);
+void	move_lis(t_stack **stk_a, t_stack **stk_b, int stk_size, int *ops);
+
 //Utils
 void	ft_error(char *msg);
-int		ft_min_pos(t_stack *stk_a);
+int		ft_min_index(t_stack *stk_a);
+int		ft_max_index(t_stack *stk_a);
 void	add_index(t_stack **stk_a);
 void	print_stack(t_stack *stk, char *nome);
 

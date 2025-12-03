@@ -6,13 +6,13 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 13:49:15 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/25 16:51:49 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/12/03 10:52:53 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	ft_is_sort(t_stack *stk_a)
+static int	is_sort(t_stack *stk_a)
 {
 	t_stack	*stk_b;
 
@@ -100,10 +100,10 @@ static int	is_valid_args(int ar, char *av[])
 	return (1);
 }
 
-int	ft_check_args(int ar, char *av[], t_stack **stk)
+int	check_args(int ar, char *av[], t_stack **stk)
 {
 	convert_args(ar, av, stk);
-	if (ft_is_sort(*stk))
+	if (is_sort(*stk))
 		ft_error("Error");
 	if (is_valid_args(ar, av) && !check_doubles(*stk))
 		return (1);

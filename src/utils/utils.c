@@ -6,7 +6,7 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 16:09:28 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/12/03 10:13:15 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/12/03 11:08:14 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,32 @@ void	ft_error(char *msg)
 	exit(0);
 }
 
-int	ft_min_pos(t_stack *stk_a)
+int	ft_min_index(t_stack *a)
 {
 	int	min;
-	int	pos;
-	int	i;
 
-	min = stk_a->content;
-	pos = 0;
-	i = 0;
-	while (stk_a)
+	min = a->index;
+	while (a)
 	{
-		if (stk_a->content < min)
-		{
-			min = stk_a->content;
-			pos = i;
-		}
-		stk_a = stk_a->next;
-		i++;
+		if (a->index < min)
+			min = a->index;
+		a = a->next;
 	}
-	return (pos);
+	return (min);
+}
+
+int	ft_max_index(t_stack *a)
+{
+	int	max;
+
+	max = a->index;
+	while (a)
+	{
+		if (a->index > max)
+			max = a->index;
+		a = a->next;
+	}
+	return (max);
 }
 
 void	add_index(t_stack **stk_a)
@@ -62,14 +68,4 @@ void	add_index(t_stack **stk_a)
 		n1->index = i;
 		n1 = n1->next;
 	}
-}
-
-int	get_chunk_size(int stk_size)
-{
-	if (stk_size <= 100)
-		return (stk_size / 5);
-	else if (stk_size <= 500)
-		return (stk_size / 10);
-	else
-		return (stk_size / 20);
 }

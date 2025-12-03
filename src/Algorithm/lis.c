@@ -6,7 +6,7 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 10:58:42 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/12/02 14:57:34 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/12/03 17:18:21 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,50 @@ void	set_is_lis(t_stack **stk_a, int max_len)
 	}
 }
 
-int	move_stk(t_stack **stk_a, t_stack **stk_b, int stk_size)
+/* void	move_lis(t_stack **stk_a, t_stack **stk_b, int stk_size, int *ops)
 {
-	int	ops;
+	t_stack	*tmp;
+	int lis_count;
+	int max_lis;
 
-	ops = 0;
+	lis_count = 0;
+	tmp = *stk_a;
+	while (tmp)
+	{
+		tmp->lis_length = 1;
+		tmp = tmp->next;
+	}
+	max_lis = lis(stk_a);
+	set_is_lis(stk_a, lis(stk_a));
+	while (stk_size-- && lis_count < max_lis)
+	{
+		if ((*stk_a)->is_lis == 1)
+			*ops += ra(stk_a);
+		else
+		{
+			*ops += pb(stk_a, stk_b);
+			lis_count++;
+		}
+	}
+} */
+
+void	move_lis(t_stack **stk_a, t_stack **stk_b, int stk_size, int *ops)
+{
+	t_stack	*tmp;
+
+	tmp = *stk_a;
+	while (tmp)
+	{
+		tmp->lis_length = 1;
+		tmp = tmp->next;
+	}
+	 lis(stk_a);
+	set_is_lis(stk_a, lis(stk_a));
 	while (stk_size--)
 	{
 		if ((*stk_a)->is_lis == 1)
-			ops += ra(stk_a);
+			*ops += ra(stk_a);
 		else
-			ops += pb(stk_a, stk_b);
+			*ops += pb(stk_a, stk_b);
 	}
-	return (ops);
 }

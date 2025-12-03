@@ -6,7 +6,7 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 14:18:35 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/24 15:59:25 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/12/03 11:19:52 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,29 @@
 
 static int	move_min_to_top(t_stack **stk_a)
 {
-	int	ops;
-	int	min_pos;
-	int	size;
+	t_stack	*tmp;
+	int		target;
+	int		size;
+	int		ops;
+	int		pos;
 
 	ops = 0;
 	size = ft_stack_size(*stk_a);
-	min_pos = ft_min_pos(*stk_a);
-	if (min_pos <= size / 2)
-		while (min_pos--)
+	target = ft_min_index(*stk_a);
+	pos = 0;
+	tmp = *stk_a;
+	while (tmp)
+	{
+		if (tmp->index == target)
+			break ;
+		tmp = tmp->next;
+		pos++;
+	}
+	if (pos <= size / 2)
+		while (pos--)
 			ops += ra(stk_a);
 	else
-		while (min_pos++ < size)
+		while (pos++ < size)
 			ops += rra(stk_a);
 	return (ops);
 }
