@@ -6,7 +6,7 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 16:09:28 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/11/28 11:17:14 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/12/03 00:42:59 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,14 @@ void	add_index(t_stack **stk_a)
 		n1->index = i;
 		n1 = n1->next;
 	}
+}
+
+int get_chunk_size(int stk_size)
+{
+	if (stk_size <= 100)
+		return (stk_size / 5);
+	else if (stk_size <= 500)
+		return (stk_size / 10);
+	else
+		return (stk_size / 20);
 }
