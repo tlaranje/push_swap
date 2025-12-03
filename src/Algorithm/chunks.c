@@ -6,111 +6,85 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 16:17:10 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/12/03 01:00:02 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/12/03 10:02:20 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	find_max_index(t_stack *stk_b)
+static int	find_index(t_stack *stk, int start, int end, int mode)
 {
-	int	max_index;
-	int	best_index;
-	int	current_index;
+	int	i;
+	int	best;
+	int	val;
 
-	best_index = 0;
-	current_index = 0;
-	max_index = -1;
-	while (stk_b)
+	i = 0;
+	best = -1;
+	val = (mode) ? -1 : 2147483647;
+	while (stk)
 	{
-		if (stk_b->index > max_index)
+		if (mode && stk->index > val)
 		{
-			max_index = stk_b->index;
-			best_index = current_index;
+			val = stk->index;
+			best = i;
 		}
-		current_index++;
-		stk_b = stk_b->next;
+		else if (!mode && stk->index >= start && stk->index <= end)
+			return (i);
+		i++;
+		stk = stk->next;
 	}
-	return (best_index);
+	return (best);
 }
 
-static int	find_target_index(t_stack *stk_a, int start, int end)
-{
-	int	index;
-
-	index = 0;
-	while (stk_a)
-	{
-		if (stk_a->index >= start && stk_a->index <= end)
-			return (index);
-		index++;
-		stk_a = stk_a->next;
-	}
-	return (-1);
-}
-
-static int	rotate_to_top(t_stack **stk, int index, int (*r)(t_stack **), \
-						int (*rr)(t_stack **))
+static int	rotate_to_top(t_stack **stk, int index,
+	int (*r)(t_stack **), int (*rr)(t_stack **))
 {
 	int	ops;
 	int	size;
-	int	moves;
 
 	ops = 0;
 	size = ft_stack_size(*stk);
-	if (index <= size / 2)
+	while (index >= 0 && index < size && index != 0)
 	{
-		moves = index;
-		while (moves--)
+		if (index <= size / 2)
+		{
 			ops += r(stk);
-	}
-	else
-	{
-		moves = size - index;
-		while (moves--)
-			ops += rr(stk);
-	}
-	return (ops);
-}
-
-static int	move_chunks(t_stack **stk_a, t_stack **stk_b, int start, int end)
-{
-	int	ops;
-	int	index;
-	int	median;
-
-	ops = 0;
-	median = (start + end) / 2;
-	while (1)
-	{
-		index = find_target_index(*stk_a, start, end);
-		if (index == -1)
-			break ;
-		ops += rotate_to_top(stk_a, index, ra, rra);
-		if ((*stk_a)->index < median)
-			ops += pb(stk_a, stk_b) + rb(stk_b);
+			index--;
+		}
 		else
-			ops += pb(stk_a, stk_b);
+		{
+			ops += rr(stk);
+			index = (index + 1 == size) ? 0 : index + 1;
+		}
 	}
 	return (ops);
 }
 
-static int	move_back(t_stack **stk_a, t_stack **stk_b)
+static int	move(t_stack **a, t_stack **b, int start, int end, int back)
 {
 	int	ops;
-	int	index;
+	int	idx;
+	int	med;
 
 	ops = 0;
-	while (*stk_b)
+	med = (start + end) / 2;
+	while (!back && (idx = find_index(*a, start, end, 0)) != -1)
 	{
-		index = find_max_index(*stk_b);
-		ops += rotate_to_top(stk_b, index, rb, rrb);
-		ops += pa(stk_a, stk_b);
+		ops += rotate_to_top(a, idx, ra, rra);
+		ops += pb(a, b);
+		if ((*b)->index < med)
+			ops += rb(b);
+	}
+	while (back && *b)
+	{
+		idx = find_index(*b, 0, 0, 1);
+		ops += rotate_to_top(b, idx, rb, rrb);
+		ops += pa(a, b);
 	}
 	return (ops);
 }
 
-int	chunks_sort(t_stack **stk_a, t_stack **stk_b, int c_size, int s_size)
+int	chunks_sort(t_stack **a, t_stack **b, int c_size, int s_size)
 {
 	int	ops;
 	int	start;
@@ -120,12 +94,10 @@ int	chunks_sort(t_stack **stk_a, t_stack **stk_b, int c_size, int s_size)
 	start = 0;
 	while (start < s_size)
 	{
-		end = start + c_size - 1;
-		if (end >= s_size)
-			end = s_size - 1;
-		ops += move_chunks(stk_a, stk_b, start, end);
+		end = (start + c_size - 1 >= s_size) ? s_size - 1 : start + c_size - 1;
+		ops += move(a, b, start, end, 0);
 		start += c_size;
 	}
-	ops += move_back(stk_a, stk_b);
+	ops += move(a, b, 0, 0, 1);
 	return (ops);
 }

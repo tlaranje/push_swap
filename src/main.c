@@ -6,7 +6,7 @@
 /*   By: tlaranje <tlaranje@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 10:46:24 by tlaranje          #+#    #+#             */
-/*   Updated: 2025/12/03 00:59:17 by tlaranje         ###   ########.fr       */
+/*   Updated: 2025/12/03 09:47:47 by tlaranje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,8 @@ static int	ft_sort(int ar, char *av[], t_stack **stk_a, t_stack **stk_b)
 	else if (ft_stack_size(*stk_a) == 5)
 		return (sort_5(stk_a, stk_b));
 	else if (ft_stack_size(*stk_a) > 5)
-		//return (chunks_sort(stk_a, stk_b, get_chunk_size(stk_size), stk_size));
-		return (radix_sort(stk_a, stk_b, stk_size));
-
+		return (chunks_sort(stk_a, stk_b, get_chunk_size(stk_size), stk_size));
+		//return (radix_sort(stk_a, stk_b, stk_size));
 	return (1);
 }
 
