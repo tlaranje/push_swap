@@ -72,3 +72,18 @@ int	find_target_index(t_stack *stk_a, int start, int end)
 	}
 	return (-1);
 }
+
+int	get_chunk_size(int size)
+{
+	if (size <= 5)
+		return (1);
+	if (size <= 100)
+		return (15);
+	if (size <= 200)
+		return (20);
+	if (size <= 300)
+		return (25);
+	if (size <= 500)
+		return (60);
+	return (60);
+}

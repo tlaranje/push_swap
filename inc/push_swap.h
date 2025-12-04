@@ -31,6 +31,8 @@ int		ft_stack_size(t_stack *stk);
 
 //=== Check args ===
 int		ft_check_args(int ar, char *av[], t_stack **stk);
+long	ft_atol(const char *str);
+int		is_in_range_of_int(char *str);
 
 //=== Instructions ===
 //Swap
@@ -57,7 +59,7 @@ int		rrr(t_stack **stk_a, t_stack **stk_b);
 //=== Algorithm ===
 //Small Sort
 int		sort_2(t_stack **stk_a);
-int		sort_3(t_stack **stk_a, t_stack **stk_b);
+int		sort_3(t_stack **stk_a);
 int		sort_4(t_stack **stk_a, t_stack **stk_b);
 int		sort_5(t_stack **stk_a, t_stack **stk_b);
 
@@ -69,9 +71,9 @@ void	add_index(t_stack **stk_a);
 int		chunks_sort(t_stack **stk_a, t_stack **stk_b, int c_size, int s_size);
 int		get_chunk_size(int size);
 int		find_target_index(t_stack *stk_a, int start, int end);
+int		find_max_index(t_stack *stk_b);
 int		rotate_to_top(t_stack **stk, int index,	int (*r)(t_stack **),
 			int (*rr)(t_stack **));
-int		find_max_index(t_stack *stk_b);
 
 //=== Utils ===
 void	ft_error(char *msg);

@@ -40,38 +40,45 @@ int	sort_2(t_stack **stk_a)
 	return (ops);
 }
 
-int	sort_3(t_stack **stk_a, t_stack **stk_b)
+int	sort_3(t_stack **a)
 {
 	int	ops;
 
 	ops = 0;
-	ops += move_min_to_top(stk_a);
-	ops += pb(stk_a, stk_b);
-	ops += sort_2(stk_a);
-	ops += pa(stk_a, stk_b);
+	if ((*a)->content > (*a)->next->content)
+		ops += sa(a);
+	if ((*a)->next->content > (*a)->next->next->content)
+	{
+		ops += rra(a);
+		if ((*a)->content > (*a)->next->content)
+			ops += sa(a);
+	}
 	return (ops);
 }
 
-int	sort_4(t_stack **stk_a, t_stack **stk_b)
+int	sort_4(t_stack **a, t_stack **b)
 {
 	int	ops;
 
 	ops = 0;
-	ops += move_min_to_top(stk_a);
-	ops += pb(stk_a, stk_b);
-	ops += sort_3(stk_a, stk_b);
-	ops += pa(stk_a, stk_b);
+	ops += move_min_to_top(a);
+	ops += pb(a, b);
+	ops += sort_3(a);
+	ops += pa(a, b);
 	return (ops);
 }
 
-int	sort_5(t_stack **stk_a, t_stack **stk_b)
+int	sort_5(t_stack **a, t_stack **b)
 {
 	int	ops;
 
 	ops = 0;
-	ops += move_min_to_top(stk_a);
-	ops += pb(stk_a, stk_b);
-	ops += sort_4(stk_a, stk_b);
-	ops += pa(stk_a, stk_b);
+	ops += move_min_to_top(a);
+	ops += pb(a, b);
+	ops += move_min_to_top(a);
+	ops += pb(a, b);
+	ops += sort_3(a);
+	ops += pa(a, b);
+	ops += pa(a, b);
 	return (ops);
 }

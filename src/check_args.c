@@ -34,7 +34,7 @@ static void	convert_args(int ar, char *av[], t_stack **stk)
 {
 	int		i;
 	int		j;
-	int		nbr;
+	long	nbr;
 	char	**split;
 
 	i = 1;
@@ -44,8 +44,10 @@ static void	convert_args(int ar, char *av[], t_stack **stk)
 		j = 0;
 		while (split[j])
 		{
-			nbr = ft_atoi(split[j]);
-			ft_stack_add_back(stk, ft_stack_new(nbr));
+			if (!is_in_range_of_int((split[j])))
+				ft_error("Error");
+			nbr = ft_atol(split[j]);
+			ft_stack_add_back(stk, ft_stack_new((int)nbr));
 			j++;
 		}
 		j = 0;
@@ -76,26 +78,31 @@ static int	check_doubles(t_stack *stk)
 	return (0);
 }
 
-static int	is_valid_args(int ar, char *av[])
+static int	is_valid_args(int ac, char *av[])
 {
 	int	i;
 	int	j;
 
 	j = 1;
-	while (av[j])
+	while (j < ac)
 	{
 		i = 0;
+		if (!av[j][i])
+			return (0);
 		while (av[j][i])
 		{
-			if ((!(ft_isdigit(av[j][i])) && !ft_issign(av[j][i])
-			&& !ft_isspace(av[j][i])))
+			if (av[j][i] == '+' || av[j][i] == '-')
+			{
+				if (i != 0 && av[j][i - 1] != ' ')
+					return (0);
+				if (!ft_isdigit(av[j][i + 1]))
+					return (0);
+			}
+			else if (!ft_isdigit(av[j][i]) && av[j][i] != ' ')
 				return (0);
 			i++;
 		}
-		if (!(ar == 2))
-			j++;
-		else
-			break ;
+		j++;
 	}
 	return (1);
 }

@@ -64,18 +64,37 @@ void	add_index(t_stack **stk_a)
 	}
 }
 
-int	get_chunk_size(int size)
+long	ft_atol(const char *str)
 {
-	int	chunk;
-	int	i;
+	long	res;
+	int		sign;
+	int		i;
 
-	if (size <= 5)
-		return (1);
+	res = 0;
+	sign = 1;
 	i = 0;
-	while (i * i < size)
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		i++;
-	chunk = i * 14 / 10;
-	if (chunk < 20)
-		chunk = 20;
-	return (chunk);
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res = res * 10 + (str[i] - '0');
+		i++;
+	}
+	return (res * sign);
+}
+
+int	is_in_range_of_int(char *str)
+{
+	long	n;
+
+	n = ft_atol(str);
+	if (n < -2147483648 || n > 2147483647)
+		return (0);
+	return (1);
 }

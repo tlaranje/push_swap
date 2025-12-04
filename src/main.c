@@ -14,7 +14,7 @@
 
 void	print_stack(t_stack *stk, char *nome)
 {
-	ft_printf("+---------------+\n");
+	ft_printf("\n+---------------+\n");
 	ft_printf("|    Stack %s    |\n", nome);
 	ft_printf("+---------------+\n");
 	printf("|   Size: %-3d   |\n", ft_stack_size(stk));
@@ -37,12 +37,12 @@ static int	ft_sort(int ar, char *av[], t_stack **stk_a, t_stack **stk_b)
 		ft_error("Error");
 	if (!ft_check_args(ar, av, stk_a))
 		ft_error("Error");
-	stk_size = ft_stack_size(*stk_a);
 	add_index(stk_a);
+	stk_size = ft_stack_size(*stk_a);
 	if (ft_stack_size(*stk_a) == 2)
 		return (sort_2(stk_a));
 	else if (ft_stack_size(*stk_a) == 3)
-		return (sort_3(stk_a, stk_b));
+		return (sort_3(stk_a));
 	else if (ft_stack_size(*stk_a) == 4)
 		return (sort_4(stk_a, stk_b));
 	else if (ft_stack_size(*stk_a) == 5)
@@ -62,9 +62,6 @@ int	main(int ar, char *av[])
 	stk_b = NULL;
 	ops = 0;
 	ops += ft_sort(ar, av, &stk_a, &stk_b);
-	print_stack(stk_a, "A");
-	print_stack(stk_b, "B");
-	printf("\nOperations: %d\n\n", ops);
 	ft_stack_clear(&stk_a);
 	ft_stack_clear(&stk_b);
 	return (0);

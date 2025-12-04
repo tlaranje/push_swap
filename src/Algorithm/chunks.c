@@ -26,10 +26,9 @@ static int	move_chunks(t_stack **stk_a, t_stack **stk_b, int start, int end)
 		if (index == -1)
 			break ;
 		ops += rotate_to_top(stk_a, index, ra, rra);
-		if ((*stk_a)->index < median)
-			ops += pb(stk_a, stk_b) + rb(stk_b);
-		else
-			ops += pb(stk_a, stk_b);
+		ops += pb(stk_a, stk_b);
+		if ((*stk_b)->index < median)
+			ops += rb(stk_b);
 	}
 	return (ops);
 }
